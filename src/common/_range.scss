@@ -1,0 +1,39 @@
+/* 横向*/
+.range_x {
+  position: relative;
+}
+.range_x .range_wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.range_x .range_bar {
+  width: 0%;
+  height: 100%;
+}
+.range_x .range_btn {
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  position: absolute;
+}
+/* 纵向 */
+.range_y {
+  position: relative;
+}
+.range_y .range_wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.range_y .range_bar {
+  width: 100%;
+  height: 100%;
+}
+.range_y .range_btn {
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  top: 100%;
+  left: 50%;
+  position: absolute;
+}

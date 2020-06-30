@@ -1,0 +1,20 @@
+/* 公共样式定义 */
+
+// color
+$control-bg-color: linear-gradient(rgba(0, 0, 0, 0), rgba(51, 51, 51, 0.6));
+$played-range-wrap-bg-color: rgba(255, 255, 255, 0.2);
+$played-range-bar-bg-color: rgb(255, 0, 0);
+$buffered-range-bar-bg-color: rgba(255, 255, 255, 0.4);
+$range-btn-color: rgb(255, 0, 0);
+$playRate-btn-layer: rgb(146, 146, 153);
+$svg-fill: rgb(190, 190, 190);
+
+// z-index
+$control-z-index: 2147483647;
+$range-btn-z-index: 99;
+
+// size
+$player-control: 29px;
+$control-bar-height: 4px;
+$player-btn-height: 25px;
+$volume-line-height: 3px;

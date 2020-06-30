@@ -1,0 +1,226 @@
+/* 隐藏影子元素 */
+video::-webkit-media-controls {
+  display: none !important;
+}
+.player {
+  min-width: 600px;
+  width: var(--play-width);
+  height: var(--play-height);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica,
+    Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif;
+  position: relative;
+  background-color: black;
+  color: white;
+  user-select: none;
+}
+.player_inner {
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.player_cover {
+  position: absolute;
+  z-index: 10;
+}
+.player_control {
+  width: 100%;
+  height: var(--player-control);
+  position: absolute;
+  bottom: 0px;
+  background: var(--control-bg-color);
+  font-size: 12px;
+  z-index: var(--control-z-index);
+  transition: opacity 0.5s;
+}
+/* 进度条样式定义 */
+.player_controlbar {
+  width: 100%;
+  cursor: pointer;
+  height: var(--control-bar-height);
+}
+.player_controlbar .played,
+.player_controlbar .buffered {
+  position: absolute;
+  top: 0;
+  height: var(--control-bar-height);
+  width: 100%;
+}
+/* 播放进度 */
+.player_controlbar .played .range_x {
+  width: 100%;
+  height: 100%;
+}
+.player_controlbar .played .range_x .range_wrap {
+  position: absolute;
+  bottom: 0px;
+  padding-top: 16px;
+  cursor: pointer;
+}
+.player_controlbar .played .range_x .range_wrap .range_wrap_inner {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: var(--control-bar-height);
+  background: var(--played-range-wrap-bg-color);
+}
+.player_controlbar .played .range_x .range_bar {
+  background-color: var(--played-range-bar-bg-color);
+  width: 0%;
+}
+.player_controlbar .played .range_x .range_btn {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 8px solid transparent;
+  z-index: var(--range-btn-z-index);
+}
+.player_controlbar .played .range_x .range_btn .range_btn_inner {
+  background-color: var(--range-btn-color);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+/* 缓存进度 */
+.player_controlbar .buffered .range_x {
+  width: 100%;
+  height: 100%;
+}
+.player_controlbar .buffered .range_x .range_bar {
+  background-color: var(--buffered-range-bar-bg-color);
+  width: 0%;
+}
+/* 动作按钮样式 */
+.player_btn {
+  position: absolute;
+  bottom: 0;
+  height: var(--player-btn-height);
+  width: 100%;
+  flex: 1;
+  display: flex;
+}
+.volume_time,
+.play,
+.fullScreen_playRate {
+  height: 100%;
+  line-height: var(--player-btn-height);
+  flex: 1 1 0%;
+  display: flex;
+  text-align: center;
+}
+.play {
+  justify-content: center;
+}
+.fullScreen_playRate {
+  justify-content: flex-end;
+}
+.volume_line,
+.volume_btn,
+.play_btn,
+.fullscreen_btn,
+.playRate_btn {
+  cursor: pointer;
+  height: 100%;
+  width: 23px;
+  margin: 0 12px;
+}
+/* playbackRate选项样式 */
+.playRate_btn {
+  width: 52px;
+  margin-left: 20px;
+  margin-right: 10px;
+  height: var(--player-btn-height);
+  position: relative;
+}
+.playRate_btn > .btn {
+  display: inline-block;
+  width: 52px;
+  line-height: var(--player-btn-height);
+  height: var(--player-btn-height);
+}
+.playRate_btn .layer {
+  display: none;
+  position: absolute;
+  top: -100px;
+  left: 0;
+  line-height: var(--player-btn-height);
+  width: 52px;
+  background: var(--playRate-btn-layer);
+  list-style-type: none;
+}
+.playbackrate {
+  display: inline-block;
+  height: var(--player-btn-height);
+  width: 52px;
+}
+.playbackrate:hover {
+  background: var(--played-range-wrap-bg-color);
+}
+.playRate_btn:hover.playRate_btn .layer {
+  display: block;
+}
+/* 音量按钮 */
+.volume_line {
+  width: 80px;
+  height: 100%;
+}
+.volume_line .range_x {
+  margin-top: 11px;
+  width: 80px;
+  height: var(--volume-line-height);
+}
+.volume_line .range_x .range_wrap {
+  position: absolute;
+  bottom: -11px;
+  padding-top: 7px;
+  padding-bottom: 11px;
+  cursor: pointer;
+}
+.volume_line .range_x .range_wrap .range_wrap_inner {
+  position: absolute;
+  bottom: 11px;
+  width: 100%;
+  height: var(--volume-line-height);
+  background: var(--played-range-wrap-bg-color);
+}
+.volume_line .range_x .range_bar {
+  background-color: var(--buffered-range-bar-bg-color);
+  width: 0%;
+}
+.volume_line .range_x .range_btn {
+  display: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 5px solid transparent;
+  z-index: var(--range-btn-z-index);
+}
+.volume_line .range_x .range_btn .range_btn_inner {
+  background-color: var(--svg-fill);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.volume_line:hover .range_x .range_btn {
+  display: block;
+}
+/* 时间样式定义 */
+.time {
+  height: 100%;
+  margin-left: 15px;
+  display: flex;
+}
+.cur_time {
+  height: 100%;
+  width: 40px;
+}
+.full_time {
+  height: 100%;
+  width: 40px;
+}
+svg {
+  fill: var(--svg-fill);
+}
