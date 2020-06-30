@@ -2,7 +2,7 @@
 
 ### 简介
 
-1. 使用 webpack 打包的原生 js 播放器
+1. 使用 webpack 打包的原生 js 播放器，点击 **https://oda-t.github.io/html5player/** 预览播放效果
 2. 左键点击/空格实现播放、暂停；播放结束自动暂停，再次点击重新播放
 3. 5 秒内如果无法获取到视频源(networkState=0||networkState=3||readyState=0)，则判定为视频无法播放
 4. 可以查看播放进度条和缓冲进度条
