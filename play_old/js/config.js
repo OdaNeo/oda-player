@@ -1,4 +1,4 @@
-localStorage.clear();
+localStorage.clear()
 // 自定义全局配置，从localStorage提取数据
 let state = {
   is_play: false,
@@ -10,5 +10,5 @@ let state = {
   rate: localStorage.rate || 1,
   timer: null,
   timeout: 5000,
-  back_forward_time: 1000,
-};
+  back_forward_time: 1000
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:;base64,=" />
+  </head>
+  <body>
+    <div id="player"></div>
+  </body>
+  <script>
+    let el = document.querySelector('#player')
+
+    // let url = 'http://vjs.zencdn.net/v/oceans.mp4'
+    let url = `http://www.runoob.com/try/demo_source/mov_bbb.mp4`
+
+    // localStorage.clear()
+
+    el = new OPlayer({
+      el: el,
+      url: url,
+      width: 900,
+      height: 450
+    })
+  </script>
+</html>

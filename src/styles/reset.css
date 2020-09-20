@@ -1,0 +1,8 @@
+/* 隐藏影子元素 */
+video::-webkit-media-controls {
+  display: none !important;
+}
+/* svg */
+svg {
+  fill: #ffffff;
+}
