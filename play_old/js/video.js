@@ -1,6 +1,6 @@
 import anime from 'animejs/lib/anime.es.js'
-import { fullscreen, cancelFullscreen } from './utils/fullscreen'
-import { autohide, mousePause } from './utils/mousepause'
+import { fullscreen, cancelFullscreen } from '../../src/utils/fullscreen'
+import { autohide, mousePause } from '../../src/utils/mousepause'
 
 export default class OPlayer {
   constructor({ ...arg }) {

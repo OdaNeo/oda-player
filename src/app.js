@@ -138,7 +138,7 @@ export default class OPlayer {
 
     this.player_inner.addEventListener('waiting', () => {
       this.pause()
-      this.player_cover.innerHTML = '缓冲' // 视频缓冲 TODO:缓冲标识符禁止点击事件
+      this.player_cover.innerHTML = '缓冲' // 视频缓冲 TODO: 缓冲标识符禁止点击事件
     })
 
     this.player_inner.addEventListener('playing', () => {
@@ -222,6 +222,10 @@ export default class OPlayer {
     this.handlePlayerBarClick() // 播放进度条点击
 
     this.handleVolumeLineBar() // 音量进度条点击
+
+    this.handlePlayerBtnDrag() // 播放进度按钮拖拽事件
+
+    this.handleVolumeLineBtnDrag() // 播放进度按钮拖拽事件
   }
 
   // 绘制播放进度条
@@ -235,7 +239,7 @@ export default class OPlayer {
     this.progress = Math.round((this.curTime / this.totalTime) * 100) / 100
 
     this.controlbar_played_bar.style.width = this.progress * 100 + '%'
-    this.controlbar_played_btn.style.left = this.progress * this.controlbar_wrap.offsetWidth + 'px'
+    this.controlbar_played_btn.style.left = this.progress * 100 + '%'
   }
 
   // 获得视频可以播放时的已经缓存的长度
@@ -318,7 +322,9 @@ export default class OPlayer {
 
   // 音量按钮动作
   handleVol() {
-    this.volume_btn.addEventListener('click', () => {
+    this.volume_btn.addEventListener('click', e => {
+      e.stopPropagation()
+
       if (this.volume !== 0) {
         this.volumeToggle(0)
       } else {
@@ -408,39 +414,105 @@ export default class OPlayer {
 
   // 点击播放进度条
   handlePlayerBarClick() {
-    this.player_controlbar.addEventListener('click', e => {
-      e.stopPropagation()
-
-      let x = e.offsetX
-      let max = this.player_controlbar.offsetWidth
-
-      x = x < 0 ? 0 : x
-      x = x > max ? max : x
-
-      this.controlbar_played_btn.style.left = (x / max) * 100 + '%'
-      this.controlbar_played_bar.style.width = (x / max) * 100 + '%'
-      this.progress = Math.round((x / max) * 100) / 100 // 保留两位小数
-
-      this.player_inner.currentTime = this.totalTime * this.progress
-    })
+    // this.player_controlbar.addEventListener('click', e => {
+    //   e.stopPropagation()
+    //   let x = e.offsetX
+    //   let max = this.player_controlbar.offsetWidth
+    //   x = x < 0 ? 0 : x
+    //   x = x > max ? max : x
+    //   this.controlbar_played_btn.style.left = (x / max) * 100 + '%'
+    //   this.controlbar_played_bar.style.width = (x / max) * 100 + '%'
+    //   this.progress = Math.round((x / max) * 100) / 100 // 保留两位小数
+    //   this.player_inner.currentTime = this.totalTime * this.progress
+    // })
   }
 
   // 点击音量进度条
   handleVolumeLineBar() {
-    this.volume_line.addEventListener('click', e => {
-      e.stopPropagation()
+    // this.volume_line.addEventListener('click', e => {
+    //   e.stopPropagation()
+    //   let x = e.offsetX
+    //   let max = this.volume_line.offsetWidth
+    //   x = x < 0 ? 0 : x
+    //   x = x > max ? max : x
+    //   this.volume_line_btn.style.left = (x / max) * 100 + '%'
+    //   this.volume_line_bar.style.width = (x / max) * 100 + '%'
+    //   this.volume = Math.round((x / max) * 100) / 100 // 保留两位小数
+    //   this.volumeToggle(this.volume)
+    // })
+  }
 
-      let x = e.offsetX
-      let max = this.volume_line.offsetWidth
+  // 播放进度按钮拖拽事件
+  handlePlayerBtnDrag() {
+    this.controlbar_played_btn.addEventListener('mousedown', e => {
+      let l = e.clientX - this.controlbar_played_btn.offsetLeft
 
-      x = x < 0 ? 0 : x
-      x = x > max ? max : x
+      document.addEventListener(
+        'mousemove',
+        (this._fn_move = e => {
+          e.preventDefault()
 
-      this.volume = Math.round((x / max) * 100) / 100 // 保留两位小数
+          let x = e.clientX - l
+          let max = this.controlbar_wrap.offsetWidth
 
-      this.volumeToggle(this.volume)
+          x = x < 0 ? 0 : x
+          x = x > max ? max : x
+
+          this.controlbar_played_btn.style.left = (x / max) * 100 + '%'
+          this.controlbar_played_bar.style.width = (x / max) * 100 + '%'
+          this.progress = Math.round((x / max) * 100) / 100 // 保留两位小数
+
+          this.player_inner.currentTime = this.totalTime * this.progress
+        })
+      )
+      document.addEventListener(
+        'mouseup',
+        (this._fn_up = e => {
+          console.log(e)
+          document.removeEventListener('mousemove', this._fn_move)
+          document.removeEventListener('mouseup', this._fn_up)
+        })
+      )
+      return false
     })
   }
+
+  // 播放进度按钮拖拽事件
+  handleVolumeLineBtnDrag() {
+    this.volume_line_btn.addEventListener('mousedown', e => {
+      let l = e.clientX - this.volume_line_btn.offsetLeft
+
+      document.addEventListener(
+        'mousemove',
+        (this.__fn_move = e => {
+          e.preventDefault()
+
+          let x = e.clientX - l
+          let max = this.volume_line.offsetWidth
+
+          x = x < 0 ? 0 : x
+          x = x > max ? max : x
+
+          this.volume_line_btn.style.left = (x / max) * 100 + '%'
+          this.volume_line_bar.style.width = (x / max) * 100 + '%'
+
+          this.volume = Math.round((x / max) * 100) / 100 // 保留两位小数
+
+          this.volumeToggle(this.volume)
+        })
+      )
+      document.addEventListener(
+        'mouseup',
+        (this.__fn_up = e => {
+          console.log(e)
+          document.removeEventListener('mousemove', this.__fn_move)
+          document.removeEventListener('mouseup', this.__fn_up)
+        })
+      )
+      return false
+    })
+  }
+
   // 更新视频时间
   videoTime(el, time) {
     let m = this.duoNumber(parseInt(time / 60)) || '00'
@@ -467,7 +539,7 @@ export default class OPlayer {
       easing: 'linear'
     })
 
-    // this.player_cover.innerHTML = '正在播放'
+    this.player_cover.innerHTML = '正在播放'
   }
   // 暂停或者播放完毕,暂停时记录播放进度
   pause() {
