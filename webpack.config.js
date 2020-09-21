@@ -11,7 +11,21 @@ const TerserJSPlugin = require('terser-webpack-plugin') // 压缩js代码
 
 const PLUGINS = process.env.NODE_ENV === 'development' ? [new webpack.HotModuleReplacementPlugin()] : [new CleanWebpackPlugin()] // dev启用热更新
 
-const OPTIMIZATION = process.env.NODE_ENV === 'production' ? [new TerserJSPlugin()] : [] // prod开启js压缩
+const OPTIMIZATION =
+  process.env.NODE_ENV === 'production'
+    ? [
+        new TerserJSPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true // 移除console
+            },
+            output: {
+              comments: false // 移除js中的注释
+            }
+          }
+        })
+      ]
+    : [] // prod开启js压缩
 
 module.exports = {
   entry: './src/app.js',

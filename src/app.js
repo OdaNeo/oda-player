@@ -414,46 +414,37 @@ export default class OPlayer {
 
   // 点击播放进度条
   handlePlayerBarClick() {
-    this.player_controlbar.addEventListener(
-      'click',
-      e => {
-        if (e.target.className !== style.player_controlbar) {
-          return
-        }
+    this.player_controlbar.addEventListener('click', e => {
+      if (e.target.className === style.controlbar_played_btn) {
+        return
+      }
+      let x = e.offsetX
+      let max = this.player_controlbar.offsetWidth
+      x = x < 0 ? 0 : x
+      x = x > max ? max : x
+      this.controlbar_played_btn.style.left = (x / max) * 100 + '%'
+      this.controlbar_played_bar.style.width = (x / max) * 100 + '%'
+      this.progress = Math.round((x / max) * 100) / 100 // 保留两位小数
 
-        let x = e.offsetX
-        let max = this.player_controlbar.offsetWidth
-        x = x < 0 ? 0 : x
-        x = x > max ? max : x
-        this.controlbar_played_btn.style.left = (x / max) * 100 + '%'
-        this.controlbar_played_bar.style.width = (x / max) * 100 + '%'
-        this.progress = Math.round((x / max) * 100) / 100 // 保留两位小数
-
-        this.player_inner.currentTime = this.totalTime * this.progress
-      },
-      true
-    )
+      this.player_inner.currentTime = this.totalTime * this.progress
+    })
   }
 
   // 点击音量进度条
   handleVolumeLineBar() {
-    this.volume_line.addEventListener(
-      'click',
-      e => {
-        if (e.target.className !== style.volume_line) {
-          return
-        }
-        let x = e.offsetX
-        let max = this.volume_line.offsetWidth
-        x = x < 0 ? 0 : x
-        x = x > max ? max : x
-        this.volume_line_btn.style.left = (x / max) * 100 + '%'
-        this.volume_line_bar.style.width = (x / max) * 100 + '%'
-        this.volume = Math.round((x / max) * 100) / 100 // 保留两位小数
-        this.volumeToggle(this.volume)
-      },
-      true
-    )
+    this.volume_line.addEventListener('click', e => {
+      if (e.target.className === style.volume_line_btn) {
+        return
+      }
+      let x = e.offsetX
+      let max = this.volume_line.offsetWidth
+      x = x < 0 ? 0 : x
+      x = x > max ? max : x
+      this.volume_line_btn.style.left = (x / max) * 100 + '%'
+      this.volume_line_bar.style.width = (x / max) * 100 + '%'
+      this.volume = Math.round((x / max) * 100) / 100 // 保留两位小数
+      this.volumeToggle(this.volume)
+    })
   }
 
   // 播放进度按钮拖拽事件
