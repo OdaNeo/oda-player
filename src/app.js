@@ -414,32 +414,46 @@ export default class OPlayer {
 
   // 点击播放进度条
   handlePlayerBarClick() {
-    // this.player_controlbar.addEventListener('click', e => {
-    //   e.stopPropagation()
-    //   let x = e.offsetX
-    //   let max = this.player_controlbar.offsetWidth
-    //   x = x < 0 ? 0 : x
-    //   x = x > max ? max : x
-    //   this.controlbar_played_btn.style.left = (x / max) * 100 + '%'
-    //   this.controlbar_played_bar.style.width = (x / max) * 100 + '%'
-    //   this.progress = Math.round((x / max) * 100) / 100 // 保留两位小数
-    //   this.player_inner.currentTime = this.totalTime * this.progress
-    // })
+    this.player_controlbar.addEventListener(
+      'click',
+      e => {
+        if (e.target.className !== style.player_controlbar) {
+          return
+        }
+
+        let x = e.offsetX
+        let max = this.player_controlbar.offsetWidth
+        x = x < 0 ? 0 : x
+        x = x > max ? max : x
+        this.controlbar_played_btn.style.left = (x / max) * 100 + '%'
+        this.controlbar_played_bar.style.width = (x / max) * 100 + '%'
+        this.progress = Math.round((x / max) * 100) / 100 // 保留两位小数
+
+        this.player_inner.currentTime = this.totalTime * this.progress
+      },
+      true
+    )
   }
 
   // 点击音量进度条
   handleVolumeLineBar() {
-    // this.volume_line.addEventListener('click', e => {
-    //   e.stopPropagation()
-    //   let x = e.offsetX
-    //   let max = this.volume_line.offsetWidth
-    //   x = x < 0 ? 0 : x
-    //   x = x > max ? max : x
-    //   this.volume_line_btn.style.left = (x / max) * 100 + '%'
-    //   this.volume_line_bar.style.width = (x / max) * 100 + '%'
-    //   this.volume = Math.round((x / max) * 100) / 100 // 保留两位小数
-    //   this.volumeToggle(this.volume)
-    // })
+    this.volume_line.addEventListener(
+      'click',
+      e => {
+        if (e.target.className !== style.volume_line) {
+          return
+        }
+        let x = e.offsetX
+        let max = this.volume_line.offsetWidth
+        x = x < 0 ? 0 : x
+        x = x > max ? max : x
+        this.volume_line_btn.style.left = (x / max) * 100 + '%'
+        this.volume_line_bar.style.width = (x / max) * 100 + '%'
+        this.volume = Math.round((x / max) * 100) / 100 // 保留两位小数
+        this.volumeToggle(this.volume)
+      },
+      true
+    )
   }
 
   // 播放进度按钮拖拽事件
@@ -468,7 +482,6 @@ export default class OPlayer {
       document.addEventListener(
         'mouseup',
         (this._fn_up = e => {
-          console.log(e)
           document.removeEventListener('mousemove', this._fn_move)
           document.removeEventListener('mouseup', this._fn_up)
         })
@@ -504,7 +517,6 @@ export default class OPlayer {
       document.addEventListener(
         'mouseup',
         (this.__fn_up = e => {
-          console.log(e)
           document.removeEventListener('mousemove', this.__fn_move)
           document.removeEventListener('mouseup', this.__fn_up)
         })
