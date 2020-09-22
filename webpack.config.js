@@ -58,11 +58,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.html$/,
-        include: [resolve('src')],
-        use: ['html-loader']
-      },
-      {
         test: /\.css$/,
         include: resolve('src'),
         use: [
