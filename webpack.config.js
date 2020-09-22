@@ -11,6 +11,8 @@ const TerserJSPlugin = require('terser-webpack-plugin') // 压缩js代码
 
 const PLUGINS = process.env.NODE_ENV === 'development' ? [new webpack.HotModuleReplacementPlugin()] : [new CleanWebpackPlugin()] // dev启用热更新
 
+const POSTCSS_PLUGINS = process.env.NODE_ENV === 'development' ? [] : [require('cssnano')] // dev关闭cssnano
+
 const OPTIMIZATION =
   process.env.NODE_ENV === 'production'
     ? [
@@ -73,7 +75,14 @@ module.exports = {
               }
             }
           },
-          'postcss-loader'
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: POSTCSS_PLUGINS.concat([require('autoprefixer')])
+              }
+            }
+          }
         ]
       },
       {
