@@ -89,6 +89,16 @@ module.exports = {
             options: {}
           }
         ]
+      },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/, /dist/],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true
+          }
+        }
       }
     ]
   }
