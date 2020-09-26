@@ -3,7 +3,9 @@ import './styles/reset.css'
 import style from './styles/index.css' // css module
 
 import playSvg from './styles/svg/play.svg'
-import volumeSvg from './styles/svg/volume.svg'
+
+import volSvg from './styles/svg/volume.svg'
+
 import fullscreenSvg from './styles/svg/fullscreen.svg'
 
 import anime from 'animejs/lib/anime.es.js'
@@ -101,7 +103,7 @@ export default class OPlayer {
     this.player_container.style.width = this.width + 'px'
     this.player_container.style.height = this.height + 'px'
     this.play_btn.innerHTML = playSvg
-    this.volume_btn.innerHTML = volumeSvg
+    this.volume_btn.innerHTML = volSvg
     this.fullscreen_btn.innerHTML = fullscreenSvg
 
     // svg id
@@ -578,18 +580,46 @@ export default class OPlayer {
 
   //判断音量以及是否静音，并切换样式
   volumeToggle(vol = 0.5) {
-    if (vol === 0) {
+    if (Number(vol) === 0) {
+      anime({
+        targets: this.volume_svg_1,
+        opacity: 1,
+        duration: 150,
+        easing: 'linear'
+      })
+
       anime({
         targets: this.volume_svg_2,
         opacity: 1,
-        duration: 200,
+        duration: 150,
+        easing: 'linear'
+      })
+    } else if (Number(vol) >= 0.5) {
+      anime({
+        targets: this.volume_svg_1,
+        opacity: 1,
+        duration: 150,
+        easing: 'linear'
+      })
+
+      anime({
+        targets: this.volume_svg_2,
+        opacity: 0,
+        duration: 150,
         easing: 'linear'
       })
     } else {
       anime({
+        targets: this.volume_svg_1,
+        opacity: 0,
+        duration: 150,
+        easing: 'linear'
+      })
+
+      anime({
         targets: this.volume_svg_2,
         opacity: 0,
-        duration: 200,
+        duration: 150,
         easing: 'linear'
       })
     }
