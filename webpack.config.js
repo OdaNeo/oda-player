@@ -11,7 +11,7 @@ const TerserJSPlugin = require('terser-webpack-plugin') // 压缩js代码
 
 const PLUGINS = process.env.NODE_ENV === 'development' ? [new webpack.HotModuleReplacementPlugin()] : [new CleanWebpackPlugin()] // dev启用热更新
 
-const POSTCSS_PLUGINS = process.env.NODE_ENV === 'development' ? [] : [require('cssnano')] // dev关闭cssnano
+const POSTCSS_PLUGINS = process.env.NODE_ENV === 'development' ? [] : [require('autoprefixer'), require('cssnano')] // dev关闭cssnano
 
 const OPTIMIZATION =
   process.env.NODE_ENV === 'production'
@@ -89,6 +89,16 @@ module.exports = {
             options: {}
           }
         ]
+      },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/, /dist/],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true
+          }
+        }
       }
     ]
   }
