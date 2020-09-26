@@ -1,6 +1,6 @@
 {
-  "name": "OdaPlayer",
-  "version": "1.0.0",
+  "name": "odaplayer",
+  "version": "1.0.1",
   "description": "simple h5-player",
   "author": "OdaT",
   "license": "MIT",
