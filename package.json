@@ -1,6 +1,6 @@
 {
   "name": "o-h5-player",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "simple h5-player",
   "author": "OdaT",
   "license": "MIT",
@@ -21,11 +21,9 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.0.0",
-    "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^7.0.2",
     "css-loader": "^4.3.0",
     "cssnano": "^4.1.10",
-    "html-webpack-plugin": "^4.4.1",
     "mini-css-extract-plugin": "^0.11.2",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss": "^8.0.5",

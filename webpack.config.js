@@ -3,31 +3,7 @@ const resolve = dir => path.resolve(__dirname, dir)
 
 const webpack = require('webpack')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-
 const TerserJSPlugin = require('terser-webpack-plugin') // 压缩js代码
-
-const PLUGINS = process.env.NODE_ENV === 'development' ? [new webpack.HotModuleReplacementPlugin()] : [new CleanWebpackPlugin()] // dev启用热更新
-
-const POSTCSS_PLUGINS = process.env.NODE_ENV === 'development' ? [] : [require('cssnano')] // dev关闭cssnano
-
-const OPTIMIZATION =
-  process.env.NODE_ENV === 'production'
-    ? [
-        new TerserJSPlugin({
-          terserOptions: {
-            compress: {
-              drop_console: true // 移除console
-            },
-            output: {
-              comments: false // 移除js中的注释
-            }
-          }
-        })
-      ]
-    : [] // prod开启js压缩
 
 module.exports = {
   entry: './src/app.js',
@@ -39,21 +15,30 @@ module.exports = {
   },
   optimization: {
     namedModules: true, // 替代 NamedModulesPlugin
-    minimizer: OPTIMIZATION.concat([])
+    minimizer:
+      process.env.NODE_ENV === 'production'
+        ? [
+            new TerserJSPlugin({
+              terserOptions: {
+                compress: {
+                  drop_console: true // 移除console
+                },
+                output: {
+                  comments: false // 移除js中的注释
+                }
+              }
+            })
+          ]
+        : [] // prod开启js压缩
   },
   devtool: process.env.NODE_ENV === 'development' ? 'eval-cheap-module-source-map' : false,
   devServer: {
-    contentBase: './dist',
+    contentBase: './demo',
     port: 7863,
     open: true,
     hot: true
   },
-  plugins: PLUGINS.concat([
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: resolve('src/app.html')
-    })
-  ]),
+  plugins: process.env.NODE_ENV === 'development' ? [new webpack.HotModuleReplacementPlugin()] : [],
   module: {
     rules: [
       {
@@ -73,7 +58,7 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: POSTCSS_PLUGINS
+                plugins: process.env.NODE_ENV === 'development' ? [] : [require('cssnano')] // dev 关闭cssnano
               }
             }
           }
