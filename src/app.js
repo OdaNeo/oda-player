@@ -9,7 +9,6 @@ import fullscreenSvg from './styles/svg/fullscreen.svg'
 import anime from 'animejs/lib/anime.es.js'
 
 import { fullscreen, cancelFullscreen } from './utils/fullscreen'
-import { autohide, mouseP } from './utils/mousepause'
 
 export default class OPlayer {
   constructor({ ...arg }) {
@@ -27,6 +26,14 @@ export default class OPlayer {
     this.rate = localStorage.rate || 1
     this.timer = null
     this.backForward = 2000
+
+    // 鼠标自动隐藏
+    this.autoHide = {
+      diff: 3000, //时间间隔
+      first_time: new Date().getTime(),
+      last_time: new Date().getTime(),
+      timer: null
+    }
 
     this.init()
   }
@@ -138,7 +145,7 @@ export default class OPlayer {
 
     this.player_inner.addEventListener('waiting', () => {
       this.pause()
-      this.player_cover.innerHTML = '缓冲' // 视频缓冲 TODO: 缓冲标识符禁止点击事件
+      this.player_cover.innerHTML = '缓冲' // 视频缓冲
     })
 
     this.player_inner.addEventListener('playing', () => {
@@ -146,23 +153,8 @@ export default class OPlayer {
       this.player_cover.innerHTML = '正在播放' // 视频恢复播放
     })
 
-    // let that = this
-    // this._fn = function () {
-    //   mouseP(that.mousemove, that.mousepause, that)
-    // }
-
-    // this.player_container.addEventListener('mousemove', that._fn)
-
-    // window.addEventListener('unload', () => {
-    //   clearInterval(autohide.timer)
-    //   this.player_container.removeEventListener('mousemove', that._fn)
-    // })
-
-    // document.addEventListener('fullscreenchange', () => {
-    //   this.handleFullScreenChange() // 全屏动作
-    // })
-
     this.player_inner.addEventListener('error', () => {
+      console.log('error')
       let error_code = this.player_inner.error.code // TODO:测试错误捕捉
 
       if (error_code == '1') {
@@ -258,7 +250,7 @@ export default class OPlayer {
     })
     this.player_container.addEventListener('mouseleave', e => {
       e.stopPropagation()
-      this.player_control.style.opacity = 1
+      this.player_control.style.opacity = 0
     })
   }
 
@@ -384,10 +376,20 @@ export default class OPlayer {
       e.stopPropagation()
 
       if (document.fullscreenElement !== null) {
+        // 清除定时器，解绑事件
+        clearInterval(this.autoHide.timer)
+
+        document.removeEventListener('mousemove', this._fn_mouseP)
+
         cancelFullscreen()
+
         return
       } else {
+        // 鼠标显示隐藏
+        this.handleMouseShowHide()
+
         fullscreen(this.player_container)
+
         return
       }
     })
@@ -599,16 +601,43 @@ export default class OPlayer {
     this.volume_line_bar.style.width = vol * 100 + '%'
   }
 
-  // mouseP回调函数1
-  mousemove(el) {
-    // console.log('moving')
-    el.player_control.style.opacity = 1
-    el.player_inner.style.cursor = 'auto'
+  // 鼠标悬停消失
+  handleMouseShowHide() {
+    document.addEventListener(
+      'mousemove',
+      (this._fn_mouseP = e => {
+        this.mouseP()
+      })
+    )
   }
+
+  mouseP() {
+    this.mouseShow()
+
+    clearInterval(this.autoHide.timer)
+
+    this.autoHide.first_time = new Date().getTime()
+
+    this.autoHide.timer = setInterval(() => {
+      this.autoHide.last_time = new Date().getTime()
+      if (this.autoHide.last_time - this.autoHide.first_time > this.autoHide.diff) {
+        this.mouseHide()
+
+        clearInterval(this.autoHide.timer)
+      }
+    }, 10)
+  }
+
+  // mouseP回调函数1
+  mouseShow() {
+    this.player_control.style.opacity = 1
+    this.player_inner.style.cursor = 'auto'
+  }
+
   // mouseP回调函数2
-  mousepause(el) {
-    el.player_control.style.opacity = 0
-    el.player_inner.style.cursor = 'none'
+  mouseHide() {
+    this.player_control.style.opacity = 0
+    this.player_inner.style.cursor = 'none'
   }
 }
 
