@@ -2,8 +2,8 @@ set -e
 
 git add -A
 
-git commit -m '调整目录结构'
+git commit -m 'rename'
 
-git push git@github.com:Oda-T/OPlayer.git master:master
+git push git@github.com:Oda-T/OdaPlayer.git
 
 cd -

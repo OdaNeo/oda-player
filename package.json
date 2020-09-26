@@ -1,20 +1,18 @@
 {
-  "name": "o-h5-player",
-  "version": "2.0.3",
+  "name": "OdaPlayer",
+  "version": "1.0.0",
   "description": "simple h5-player",
   "author": "OdaT",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
   "repository": {
-    "url": "https://github.com/Oda-T/OPlayer"
+    "url": "https://github.com/Oda-T/OdaPlayer"
   },
-  "homepage": "https://github.com/Oda-T/OPlayer",
+  "homepage": "https://github.com/Oda-T/OdaPlayer",
   "keywords": [
     "player",
     "video",
-    "html5"
+    "html5",
+    "Oda"
   ],
   "dependencies": {
     "animejs": "^3.2.0"

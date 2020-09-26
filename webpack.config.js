@@ -9,8 +9,8 @@ module.exports = {
   entry: './src/app.js',
   mode: process.env.NODE_ENV,
   output: {
-    filename: 'OPlayer.js', // js 输出文件
-    path: resolve('dist'),
+    filename: 'OdaPlayer.js', // js 输出文件
+    path: resolve(''),
     publicPath: process.env.NODE_ENV === 'development' ? '/' : '/'
   },
   optimization: {
@@ -33,7 +33,7 @@ module.exports = {
   },
   devtool: process.env.NODE_ENV === 'development' ? 'eval-cheap-module-source-map' : false,
   devServer: {
-    contentBase: './demo',
+    contentBase: './dist',
     port: 7863,
     open: true,
     hot: true

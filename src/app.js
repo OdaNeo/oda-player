@@ -12,7 +12,7 @@ import anime from 'animejs/lib/anime.es.js'
 
 import { fullscreen, cancelFullscreen } from './utils/fullscreen'
 
-export default class OPlayer {
+export class OPlayer {
   constructor({ ...arg }) {
     this.el = arg.el
     this.url = arg.url
