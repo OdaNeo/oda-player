@@ -4,6 +4,6 @@ git add -A
 
 git commit -m 'rename'
 
-git push -f git@github.com:Oda-T/OdaPlayer.git
+git push -f git@github.com:Oda-T/OdaPlayer.git master:master
 
 cd -
