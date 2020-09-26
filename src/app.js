@@ -12,7 +12,7 @@ import anime from 'animejs/lib/anime.es.js'
 
 import { fullscreen, cancelFullscreen } from './utils/fullscreen'
 
-export class OdaPlayer {
+class OdaPlayer {
   constructor({ ...arg }) {
     this.el = arg.el
     this.url = arg.url
@@ -670,4 +670,5 @@ export class OdaPlayer {
     this.player_inner.style.cursor = 'none'
   }
 }
-window.OdaPlayer = OdaPlayer
+
+export default OdaPlayer

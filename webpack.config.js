@@ -6,7 +6,7 @@ const webpack = require('webpack')
 const TerserJSPlugin = require('terser-webpack-plugin') // 压缩js代码
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/index.js',
   mode: process.env.NODE_ENV,
   output: {
     filename: 'OdaPlayer.js', // js 输出文件

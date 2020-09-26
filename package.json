@@ -1,9 +1,10 @@
 {
   "name": "odaplayer",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "simple h5-player",
   "author": "OdaT",
   "license": "MIT",
+  "main": "src/index.js",
   "repository": {
     "url": "https://github.com/Oda-T/OdaPlayer"
   },
