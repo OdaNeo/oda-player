@@ -6,12 +6,18 @@ const webpack = require('webpack')
 const TerserJSPlugin = require('terser-webpack-plugin') // 压缩js代码
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    OdaPlayer: './src/app.js'
+  },
   mode: process.env.NODE_ENV,
   output: {
-    filename: 'OdaPlayer.js', // js 输出文件
+    filename: process.env.NODE_ENV === 'development' ? '[name].js' : '[name].min.js',
     path: resolve('dist'),
-    publicPath: process.env.NODE_ENV === 'development' ? '/' : '/'
+    publicPath: process.env.NODE_ENV === 'development' ? '/' : '/',
+    library: '[name]',
+    libraryTarget: 'umd',
+    libraryExport: 'default',
+    umdNamedDefine: true
   },
   optimization: {
     namedModules: true, // 替代 NamedModulesPlugin
