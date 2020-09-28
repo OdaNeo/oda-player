@@ -2,7 +2,7 @@ set -e
 
 git add -A
 
-git commit -m 'npm publish'
+git commit -m 'add babel'
 
 git push -f git@github.com:Oda-T/OdaPlayer.git master:master
 

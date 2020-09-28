@@ -44,7 +44,7 @@ module.exports = {
     open: true,
     hot: true
   },
-  plugins: process.env.NODE_ENV === 'development' ? [new webpack.HotModuleReplacementPlugin()] : [],
+  plugins: process.env.NODE_ENV === 'development' ? [new webpack.HotModuleReplacementPlugin()] : [], // dev热更新
   module: {
     rules: [
       {
@@ -64,7 +64,7 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: process.env.NODE_ENV === 'development' ? [] : [require('cssnano')] // dev 关闭cssnano
+                plugins: process.env.NODE_ENV === 'production' ? [require('cssnano'), require('autoprefixer')] : [] // prod 开启cssnano
               }
             }
           }
@@ -79,6 +79,11 @@ module.exports = {
             options: {}
           }
         ]
+      },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/],
+        use: 'babel-loader'
       }
     ]
   }

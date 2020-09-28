@@ -4,6 +4,14 @@
 
 https://oplayer-d413a.web.app
 
-### todo 点击 play 时判断是否在缓冲
+### add babel transform-runtime core-js3
 
-### add babel
+### browserslist
+
+```
+> 0.1%
+not dead
+not ie <= 10
+```
+
+### todo 点击 play 时判断是否在缓冲
