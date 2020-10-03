@@ -20,7 +20,6 @@ module.exports = {
     umdNamedDefine: true
   },
   optimization: {
-    namedModules: true, // 替代 NamedModulesPlugin
     minimizer:
       process.env.NODE_ENV === 'production'
         ? [
