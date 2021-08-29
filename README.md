@@ -2,7 +2,7 @@
 
 ### 项目预览
 
-https://oplayer-d413a.web.app
+https://odaneo.github.io/oda-player/
 
 ### add babel transform-runtime core-js3
 
