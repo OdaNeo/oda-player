@@ -8,7 +8,6 @@
   "repository": {
     "url": "https://github.com/OdaNeo/oda-player"
   },
-  "homepage": "https://odaneo.github.io/oda-player/",
   "keywords": [
     "player",
     "video",
@@ -43,6 +42,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack",
-    "build:gh-pages": "cross-env NODE_ENV=production webpack --output-public-path='/webpack4-multi-page/'"
+    "build:gh-pages": "cross-env NODE_ENV=production webpack"
   }
 }
